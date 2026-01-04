@@ -1,6 +1,5 @@
 package com.example.userservice.service;
 
-import java.lang.module.ModuleDescriptor.Builder;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -69,11 +68,9 @@ public class UserService {
         if (dto.getUserId() == null || dto.getUserId().isBlank()) {
             throw new IllegalArgumentException("user_id is required");
         }
-        if (dto.getEmail() == null || !dto.getEmail().contains("@")) {
+        // Email and phoneNumber are optional - can be updated later
+        if (dto.getEmail() != null && !dto.getEmail().contains("@")) {
             throw new IllegalArgumentException("Invalid email");
-        }
-        if (dto.getPhoneNumber() == null) {
-            throw new IllegalArgumentException("phone_number is required");
         }
     }
 

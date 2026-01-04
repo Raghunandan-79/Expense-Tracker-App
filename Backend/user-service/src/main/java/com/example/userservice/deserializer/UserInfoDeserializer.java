@@ -17,9 +17,15 @@ public class UserInfoDeserializer implements Deserializer<UserInfoDto> {
         UserInfoDto user = null;
 
         try {
+            if (arg1 == null || arg1.length == 0) {
+                System.err.println("UserInfoDeserializer: Received null or empty byte array");
+                return null;
+            }
             user = objectMapper.readValue(arg1, UserInfoDto.class);
+            System.out.println("UserInfoDeserializer: Successfully deserialized user with userId: " + (user != null ? user.getUserId() : "null"));
         } catch (Exception e) {
-            System.err.println("Can not deserialize");
+            System.err.println("UserInfoDeserializer: Can not deserialize - " + e.getMessage());
+            e.printStackTrace();
         }
 
         return user;
