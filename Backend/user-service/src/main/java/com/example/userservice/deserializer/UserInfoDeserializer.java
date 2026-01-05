@@ -21,8 +21,18 @@ public class UserInfoDeserializer implements Deserializer<UserInfoDto> {
                 System.err.println("UserInfoDeserializer: Received null or empty byte array");
                 return null;
             }
+            String jsonString = new String(arg1);
+            System.out.println("UserInfoDeserializer: Received JSON: " + jsonString);
             user = objectMapper.readValue(arg1, UserInfoDto.class);
-            System.out.println("UserInfoDeserializer: Successfully deserialized user with userId: " + (user != null ? user.getUserId() : "null"));
+            if (user != null) {
+                System.out.println("UserInfoDeserializer: Successfully deserialized - userId: " + user.getUserId() + 
+                    ", firstName: " + user.getFirstName() + 
+                    ", lastName: " + user.getLastName() + 
+                    ", email: " + user.getEmail() + 
+                    ", phoneNumber: " + user.getPhoneNumber());
+            } else {
+                System.err.println("UserInfoDeserializer: Deserialized user is null");
+            }
         } catch (Exception e) {
             System.err.println("UserInfoDeserializer: Can not deserialize - " + e.getMessage());
             e.printStackTrace();

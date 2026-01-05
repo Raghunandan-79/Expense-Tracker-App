@@ -31,6 +31,11 @@ public class AuthController {
     @PostMapping("auth/v1/signup")
     public ResponseEntity signUp(@RequestBody UserInfoDto userInfoDto) {
         try {
+            System.out.println("AuthController: Received signup request - username: " + userInfoDto.getUsername() + 
+                ", firstName: " + userInfoDto.getFirstName() + 
+                ", lastName: " + userInfoDto.getLastName() + 
+                ", email: " + userInfoDto.getEmail() + 
+                ", phoneNumber: " + userInfoDto.getPhoneNumber());
             Boolean isSignUped = userDetailsService.signupUser(userInfoDto);
 
             if (Boolean.FALSE.equals(isSignUped)) {

@@ -67,6 +67,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userInfoDto.setUserId(userId);
         userRepository.save(new UserInfo(userId, userInfoDto.getUsername(), userInfoDto.getPassword(), new HashSet<>()));
 
+        log.info("Sending user to Kafka - userId: {}, username: {}, firstName: {}, lastName: {}, email: {}, phoneNumber: {}", 
+            userId, userInfoDto.getUsername(), userInfoDto.getFirstName(), userInfoDto.getLastName(), 
+            userInfoDto.getEmail(), userInfoDto.getPhoneNumber());
         userInfoProducer.sendEventToKafka(userInfoDto);
 
         return true;
